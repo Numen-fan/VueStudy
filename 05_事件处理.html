@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>事件处理</title>
+        <style>
+            * {
+                margin-top: 20px;
+            }
+            .demo1 {
+                height: 50px;
+                background-color: skyblue;
+            }
+            .box1 {
+                padding: 5px;
+                background-color: orange;
+            }
+            .box2 {
+                padding: 5px;
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body > 
+        <div id="root">
+            <h1>你好 {{name}}</h1>
+            <button v-on:click="showInfo">点我提示信息</button></br>
+            <button v-on:click="showInfo2(66)">点我提示信息</button></br>
+            <a href="www.baidu.com" @click.prevent="showInfo2(66)">点我提示信息</a>
+            <br>
+            <div class="demo1" @click="showInfo">
+                <button @click.stop="showInfo">点我提示信息</button>
+            </div>
+            <button @click.once="showInfo">点我提示信息</button><br>
+            <div class="box1" @click.capture="showMsg(1)">
+                div1
+                <div class="box2" @click="showMsg(2)">
+                    div2
+                </div>
+            </div>
+            <!-- self只有是event.target是当前的元素时才触发事件 -->
+            <button @click.self="showInfo">点我提示信息</button><br>
+            <!-- 事件的默认行为立即执行，不需要等待其它事件执行？？？？滚动事件可以使用 -->
+            <button @click.passive="showInfo">点我提示信息</button><br>
+
+            <!-- 键盘事件 -->
+            <input type="text" placeholder="请输入" @keyup.enter="showKey"/>
+        </div>
+         
+        <script type="text/javascript">
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const vm = new Vue({
+                // el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com"
+                },
+
+                methods: {
+                    showInfo(event) {
+                        console.log(event) // event是MouseEvent
+                        // 这里this是vm对象，但是这里必须是普通函数，不能是箭头函数，箭头函数的this是window
+                        console.log(this) 
+                        alert('你好啊')
+                    },
+
+                    showInfo2(number) {
+                        alert('你好啊!!' + number)
+                    },
+
+                    showMsg(a) {
+                       console.log(a)
+                    },
+
+                    showKey(evetn) {
+                        console.log(event.target.value)
+                    }
+                }
+            }); 
+            console.log(vm)
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

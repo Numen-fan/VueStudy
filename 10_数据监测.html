@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>Demo</title>
+    </head>
+    <body > 
+        <div id="root">
+            <h1>你好 {{name}}</h1>
+            <button @click="student.age++">年龄+1</button>
+            <button @click="addSex">加一个性别</button>
+            <button @click="addFriends">加一个朋友放到首位</button>
+            <button @click="updateFirstFriendName">更新第一个朋友的名字</button>
+            <button @click="updateFirstHobby">修改第一个爱好为开车</button>
+            <h3>姓名：{{student.name}}</h3>
+            <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+            <h3>年龄：{{student.age}}</h3>
+            <h3>爱好：</h3>
+            <ul>
+                <li v-for="(h, index) in student.hobby" ::key="index">
+                    {{h}}
+                </li>
+            </ul>
+            <h3>朋友们：</h3>
+            <ul>
+                <li v-for="(f, index) in student.friends" :key="index">
+                    {{f.name}} -- {{f.age}}
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const vm = new Vue({
+                // el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com",
+                    student: {
+                        name: '张三',
+                        age: 29,
+                        hobby: ['抽烟', '烫头','喝酒'],
+                        friends: [
+                            {
+                                name: '李四',
+                                age: 22
+                            },
+                            {
+                                name: '李四',
+                                age: 22
+                            }
+                        ],
+                    },
+                },
+                methods: {
+                        addSex() {
+                            Vue.set(this.student, 'sex', '男')
+                        },
+                        addFriends() {
+                            this.student.friends.unshift({
+                                name: '王五',
+                                age: 23
+                            })
+                        },
+                        updateFirstFriendName() {
+                            this.student.friends[0].name = '赵六'
+                        },
+                        updateFirstHobby() {
+                            // this.student.hobby[0] = '开车'; // 不行的
+                            this.student.hobby.splice(0, 1, '开车')
+                        }
+                    },
+            }); 
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

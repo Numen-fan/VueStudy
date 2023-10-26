@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>Demo</title>
+    </head>
+    <body > 
+        <div id="root">
+            <school></school>
+        </div>
+        <script type="text/javascript">
+            
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+
+            // 第一步
+            // 创建一个school组件
+            const school = Vue.extend({
+                template:`
+                <div>
+                    <h2>学校名称：{{name}}</h2>
+                    <h2>学校地址：{{address}}</h2>
+                    <button @click='showName'>点我提示学校名</button>
+                </div>
+                `,
+                // el: '#root', // 一定不要写el配置，因为最终所有的组件都要被一个vm管理，由vm决定为谁服务
+               data() { // 这里面的data必须是函数式，不能是对象式
+                return {
+                    name: '尚硅谷',
+                    address:'北京昌平'
+                }
+               },
+               mounted() {
+                console.log("mounted")
+               },
+               methods: {
+                showName() {
+                     alert(this.name)
+                }
+               },
+            })
+            // 创建Vue实例
+            const vm = new Vue({
+                el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com"
+                },
+                components:{school}
+            }); 
+        </script>
+    </body>
+</html>

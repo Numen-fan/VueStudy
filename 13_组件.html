@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>Demo</title>
+    </head>
+    <body > 
+        <div id="root">
+            <!-- 第三步：编写组件标签 -->
+            <!-- <app></app> -->
+        </div>
+        <script type="text/javascript">
+            
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+
+            // 创建一个student组件
+            const student = Vue.extend({
+                template:`
+                <div>
+                    <h2>学生姓名:{{name}}</h2>
+                    <h2>学生年龄：{{age}}</h2>
+                </div>
+                `,
+                // el: '#root', // 一定不要写el配置，因为最终所有的组件都要被一个vm管理，由vm决定为谁服务
+               data() { // 这里面的data必须是函数式，不能是对象式
+                return {
+                    name: '张三',
+                    age: 18
+                }
+               },
+            })
+
+            // 创建一个hello组件
+            const hello = Vue.extend({
+                template:`
+                    <div>
+                        <h2>hello</h2>    
+                    </div>
+                `,
+            })
+            // 第一步
+            // 创建一个school组件
+            const school = Vue.extend({
+                template:`
+                <div>
+                    <h2>学校名称：{{name}}</h2>
+                    <h2>学校地址：{{address}}</h2>
+                    <button @click='showName'>点我提示学校名</button>
+                    <student/>
+                </div>
+                `,
+                // el: '#root', // 一定不要写el配置，因为最终所有的组件都要被一个vm管理，由vm决定为谁服务
+               data() { // 这里面的data必须是函数式，不能是对象式
+                return {
+                    name: '尚硅谷',
+                    address:'北京昌平'
+                }
+               },
+               methods: {
+                showName() {
+                    alert(this.name)
+                }
+               },
+               components:{
+                student:student
+               }
+            })
+
+            // 创建一个app组件
+            const app = Vue.extend({
+                template:`
+                    <div>
+                       <hello></hello>
+                       <hr>
+                       <school></school> 
+                    </div>
+                `,
+                components:{
+                    school:school,
+                    hello:hello
+                }
+            })
+
+
+            // 创建Vue实例
+            const vm = new Vue({
+                el: "#root",
+                template:`
+                    <app></app>
+                `,
+                // 第二步
+                // 组件注册(局部注册)
+                components: {
+                    app, 
+                }
+            }); 
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

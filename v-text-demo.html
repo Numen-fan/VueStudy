@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge">
+        <title>data:数据对象</title>
+    </head>
+    <body > 
+        <div id="app">
+           <h2 v-text="message">哈哈哈</h2>
+           <h2>深圳{{message}}哈哈哈</h2>
+           <h2 v-text="info">哈哈哈</h2>
+           <h2>{{message}}哈哈哈</h2>
+           <p v-html="content"></p>
+           <p v-text="content"></p>
+           <input type="button" value="点我看看"  @click="doIt" >
+           <input type="button" value="double click" v-on:dblclick="doIt" >
+           <h2 v-show="i % 2 == 0">{{message}}</h2>
+        </div>
+        <!-- 导入开发版本，包 含了有帮助的命令行警告  -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            var app = new Vue({
+               el: "#app", // 这里id class 标签选择器都是可以的,建议使用id选择器, 因为id一般会约定是唯一的。
+               data: {
+                i: 0,
+                message: "你好，小黑",
+                info: "我是info",
+                content: "<a href='https:www.baidu.com'>baidu</a>"
+                // school: {
+                //     name: "黑马程序员",
+                //     mobile: "400-618-9090"
+                // },
+                // campus:["北京校区", "上海校区", "广州校区", "深圳校区"]
+               },
+               methods: {
+                doIt: function () {
+                    this.i++
+                   this.message = this.i % 2 ==0 ? "我是修改后的值" : "黑马程序员"
+                }
+               }
+            })
+        </script>
+    </body>
+</html>

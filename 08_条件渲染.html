@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>Demo</title>
+    </head>
+    <body > 
+        <div id="root">
+            <h1>你好 {{name}}</h1>
+            <!-- 没有结构了都 -->
+            <h1 v-if="show">欢迎 {{name}}</h1>  
+            <!-- 有结构不展示 -->
+            <h1 v-show="show">欢迎 {{name}}</h1> 
+            <!-- template和v-if配合使用，不影响原有的结构，template不会作为标签 -->
+            <h1>你好 {{name}}</h1>
+        </div>
+        <script type="text/javascript">
+            
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const vm = new Vue({
+                // el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com",
+                    show: false
+                },
+            }); 
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

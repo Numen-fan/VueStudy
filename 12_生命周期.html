@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>Demo</title>
+    </head>
+    <body > 
+        <div id="root">
+            <h1 :style="{opacity}">你好 {{name}}</h1>
+        </div>
+        <script type="text/javascript">
+            
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const vm = new Vue({
+                // el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com",
+                    opacity:1
+                },
+                // 页面真实dom放入页面即挂载, 整个生命周期内只调用一次
+                mounted() {
+                    console.log("mounted")
+                    setInterval(()=> {
+                        vm.opacity -= 0.01;
+                        if (vm.opacity <= 0) {
+                            vm.opacity = 1;
+                        }
+                    }, 16)
+                },
+            }); 
+
+            vm.$mount('#root')
+
+            
+
+            
+        </script>
+    </body>
+</html>

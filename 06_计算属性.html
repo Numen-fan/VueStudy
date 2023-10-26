@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>计算属性</title>
+    </head>
+    <body > 
+        <div id="root">
+            <h1>你好 {{name}}</h1>
+            姓：<input type="text" v-model="firstname"><br/>
+            名：<input type="text" v-model="lastname"><br/>
+            全名：<span>{{fullName}}</span>
+        </div>
+        <script type="text/javascript">
+            
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const vm = new Vue({
+                // el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com",
+                    firstname: "张",
+                    lastname:"三"
+                },
+                computed: {
+                    // 调用了一次之后会进行缓存
+                    // 初次读取fullName时，所"依赖"的数据发生变化时
+                    // fullName: {
+                    //     // 只要有地方读取了fullName, get就会被调用，且返回值作为fulllName的值
+                    //     get() {
+                    //         console.log("调用了")
+                    //         // 此处的this是vm
+                    //         return this.firstname + "-" + this.lastname
+                    //     }
+                    // },
+                    // 简写
+                    fullName() {
+                        return this.firstname + "-" + this.lastname
+                    }
+                },
+            }); 
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

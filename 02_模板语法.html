@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>模板语法</title>
+    </head>
+    <body > 
+        <div id="root">
+            <h1>插值语法, 在标签之间的内容</h1>
+            <h1>Hello {{name}}, {{Date.now()}}</h1>
+            <button @click="changeName">点击切换</button>
+            <h1>指令语法，作用在标签属性上 </h1>
+            <a v-bind:href="url">百度一下</a>
+            </br>
+            <a :href="url">百度一下</a>
+            </br>
+            <div>
+                单向数据绑定<input v-model:value="name"/></br>
+                单向数据绑定<input v-model="name"/>
+            </div>
+        </div>
+        <script type="text/javascript">
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const x = new Vue({
+                el: "#root", //  el用于指定当前Vue实例为哪个容器服务，通常为css中的id选择器
+                data: { // 供el容器使用的数据
+                    name: "你好!!!",
+                    url: "https://baidu.com"
+                },
+                methods: {
+                    changeName: function() {
+                        this.name = this.name + "!";
+                    }
+                }
+            });
+        </script>
+       
+    </body>
+</html>

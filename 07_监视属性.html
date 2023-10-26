@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge"> -->
+        <script src="./js/vue.js"></script>
+        <title>xxxx</title>
+    </head>
+    <body > 
+        <div id="root">
+            <h1>你好 {{name}}</h1>
+            <h1>今天的天气很{{info}}</h1>
+            <button @click="changeWatcher">切换天气</button>
+        </div>
+        <script type="text/javascript">
+            // 阻止vue在启动的时候生成生产提示
+            Vue.config.productionTip = false;
+            // 创建Vue实例
+            const vm = new Vue({
+                // el: "#root",
+                data: { // 供el容器使用的数据
+                    name: "Vue!!!",
+                    url: "https://baidu.com",
+                    isHot: true,
+                },
+                computed: {
+                    info() {
+                            return this.isHot ? "炎热" : "凉爽";
+                        },
+                },
+                methods: {
+                    changeWatcher() {
+                            this.isHot = !ithis.sHot;
+                        }
+                    },
+                    watch: {
+                        isHot: {
+                            immediate: true, // 初始化时让handler调用一下
+                            deep: true, // 监视深层结构，比如对象的字段
+                            // 当isHot发生改变时会被调用
+                            handler(newValue, oldValue) {
+                                console.log("isHot被修改了")
+                            }
+                    }
+                },
+            });
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>
