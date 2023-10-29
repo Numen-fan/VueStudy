@@ -1,19 +1,20 @@
 <template>
   <!-- 必须要有个div根元素 -->
-  <div class="todo-container">
+<!--  <div class="todo-container">-->
     <!-- <img src="./assets/logo.png" alt="vue log"/> -->
     <!-- <button @click="showDOM">点我输出上方的DOM元素</button> -->
     <!-- <School ref="sch"/> -->
     <!--    绑定一个自定义事件，实现子给父传递数据-->
-    <MyStudent name="李四" :age="19"/>
-    <MySchool/>
-    <hr/>
-    <div class="todo-wrap">
-      <MyHeader @addTodo="addTodo"/>
-      <MyList :todos="todos"/>
-      <MyFooter :todos="todos" @checkAllTodo="checkAll" @clearAllTodo="clearAll"/>
-    </div>
-  </div>
+<!--    <MyStudent name="李四" :age="19"/>-->
+<!--    <MySchool/>-->
+<!--    <hr/>-->
+<!--    <div class="todo-wrap">-->
+<!--      <MyHeader @addTodo="addTodo"/>-->
+<!--      <MyList :todos="todos"/>-->
+<!--      <MyFooter :todos="todos" @checkAllTodo="checkAll" @clearAllTodo="clearAll"/>-->
+<!--    </div>-->
+<!--  </div>-->
+    <Test/>
 </template>
 
 <script>
@@ -23,6 +24,8 @@ import MySchool from "@/components/MySchool.vue";
 import MyHeader from "@/components/MyHeader.vue";
 import MyFooter from "@/components/MyFooter.vue";
 import MyList from "@/components/MyList.vue";
+import Test from "@/components/Test.vue";
+import Test2 from "@/components/Test2.vue";
 
 export default {
   name: 'App',
@@ -36,7 +39,9 @@ export default {
     MyList,
     MyFooter,
     MyStudent,
-    MySchool
+    MySchool,
+    Test,
+    Test2
   },
   watch: {
     todos: {
@@ -52,11 +57,13 @@ export default {
     })
     this.$bus.$on('checkTodo', this.checkTodo)
     this.$bus.$on('deleteTodo', this.deleteTodo)
+    this.$bus.$on('updateTodo', this.updateTodo)
   },
   beforeDestroy() {
     this.$bus.$off('atguigu'); // 必须要加上事件名，不能传空，因为这是傀儡bus上的解绑，这里有个问题，如果两个组件都监听呢？？？？
     this.$bus.$off('checkTodo')
     this.$bus.$off('deleteTodo')
+    this.$bus.$off("updateTodo")
   },
   methods: {
     // 添加
@@ -73,6 +80,12 @@ export default {
     deleteTodo(id) {
       this.todos = this.todos.filter((todo) => {
         return todo.id !== id;
+      })
+    },
+    // 更新todo
+    updateTodo(id, value) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) todo.title = value
       })
     },
     //
@@ -118,6 +131,13 @@ body {
   color: white;
   background-color: #da4f49;
   border: 1px solid #bd362f;
+}
+
+.btn-edit {
+  color: white;
+  background-color: skyblue;
+  border: 1px solid #6fabc2;
+  margin-right: 5px;
 }
 
 .btn-danger:hover {
