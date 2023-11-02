@@ -1,6 +1,6 @@
 <template>
   <!-- 必须要有个div根元素 -->
-<!--  <div class="todo-container">-->
+  <div class="todo-container">
     <!-- <img src="./assets/logo.png" alt="vue log"/> -->
     <!-- <button @click="showDOM">点我输出上方的DOM元素</button> -->
     <!-- <School ref="sch"/> -->
@@ -8,13 +8,13 @@
 <!--    <MyStudent name="李四" :age="19"/>-->
 <!--    <MySchool/>-->
 <!--    <hr/>-->
-<!--    <div class="todo-wrap">-->
-<!--      <MyHeader @addTodo="addTodo"/>-->
-<!--      <MyList :todos="todos"/>-->
-<!--      <MyFooter :todos="todos" @checkAllTodo="checkAll" @clearAllTodo="clearAll"/>-->
-<!--    </div>-->
-<!--  </div>-->
-    <Test/>
+    <div class="todo-wrap">
+      <MyHeader @addTodo="addTodo"/>
+      <MyList :todos="todos"/>
+      <MyFooter :todos="todos" @checkAllTodo="checkAll" @clearAllTodo="clearAll"/>
+    </div>
+  </div>
+<!--    <Test/>-->
 </template>
 
 <script>

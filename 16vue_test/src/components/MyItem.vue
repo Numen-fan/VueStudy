@@ -1,17 +1,19 @@
 <template>
-  <li>
-    <label>
-      <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
-      <span v-show="!todo.isEdit">{{todo.title}}</span>
-      <input v-show="todo.isEdit" type="text"
-             :value="todo.title"
-             @blur="handleBlur(todo, $event)"
-             ref="inputTitle"
-      >
-    </label>
-    <button class="btn btn-danger" @click="deleteTD(todo.id)">删除</button>
-    <button class="btn btn-edit" v-show="!todo.isEdit" @click="handleEdit(todo)">编辑</button>
-  </li>
+  <transition name="todo" appear>
+    <li>
+      <label>
+        <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
+        <span v-show="!todo.isEdit">{{ todo.title }}</span>
+        <input v-show="todo.isEdit" type="text"
+               :value="todo.title"
+               @blur="handleBlur(todo, $event)"
+               ref="inputTitle"
+        >
+      </label>
+      <button class="btn btn-danger" @click="deleteTD(todo.id)">删除</button>
+      <button class="btn btn-edit" v-show="!todo.isEdit" @click="handleEdit(todo)">编辑</button>
+    </li>
+  </transition>
 </template>
 
 <script>
@@ -19,7 +21,7 @@ import Vue from "vue";
 
 export default {
   name: 'MyItem',
-  props:['todo'],
+  props: ['todo'],
   methods: {
     handleCheck(id) {
       // 通知App组价将对应的todo的done取反
@@ -40,7 +42,7 @@ export default {
         todo.isEdit = true;
       }
       // 下一轮
-      this.$nextTick(()=> {
+      this.$nextTick(() => {
         this.$refs.inputTitle.focus()
       })
     },
@@ -98,5 +100,23 @@ li:hover {
 
 li:hover button {
   display: block;
+}
+
+.todo-enter-active {
+  animation: atguigu 0.5s;
+}
+
+.todo-leave-active {
+  animation: atguigu 0.5s reverse;
+}
+
+
+@keyframes atguigu {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform:translateX(0px);
+  }
 }
 </style>
